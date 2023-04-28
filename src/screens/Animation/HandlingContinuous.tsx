@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, View, Button } from 'react-native';
-import { TapGestureHandler } from 'react-native-gesture-handler';
+import { Button, StyleSheet, View } from 'react-native';
+import { PanGestureHandler } from 'react-native-gesture-handler';
 import Animated, {
   useAnimatedGestureHandler,
   useAnimatedStyle,
@@ -10,11 +10,31 @@ import Animated, {
 
 export default function HandlingContinuous({ navigation }: any) {
   const pressed = useSharedValue(false);
+  const startingPosition = 0;
+  const x = useSharedValue(startingPosition);
+  const y = useSharedValue(startingPosition);
 
-  const uas = useAnimatedStyle(() => ({
-    backgroundColor: pressed.value ? '#FEEF86' : '#001972',
-    transform: [{ scale: withSpring(pressed.value ? 1.2 : 1) }],
-  }));
+  const eventHandler = useAnimatedGestureHandler({
+    onStart: (event, ctx) => {
+      pressed.value = true;
+    },
+    onActive: (event, ctx) => {
+      x.value = startingPosition + event.translationX;
+      y.value = startingPosition + event.translationY;
+    },
+    onEnd: (event, ctx) => {
+      pressed.value = false;
+      x.value = withSpring(startingPosition);
+      y.value = withSpring(startingPosition);
+    },
+  });
+
+  const uas = useAnimatedStyle(() => {
+    return {
+      backgroundColor: pressed.value ? '#FEEF86' : '#001972',
+      transform: [{ translateX: x.value }, { translateY: y.value }],
+    };
+  });
 
   return (
     <>
@@ -32,18 +52,9 @@ export default function HandlingContinuous({ navigation }: any) {
           alignItems: 'center',
         }}
       >
-        <TapGestureHandler
-          onGestureEvent={useAnimatedGestureHandler({
-            onStart: (event, ctx) => {
-              pressed.value = true;
-            },
-            onEnd: (event, ctx) => {
-              pressed.value = false;
-            },
-          })}
-        >
+        <PanGestureHandler onGestureEvent={eventHandler}>
           <Animated.View style={[styles.ball, uas]} />
-        </TapGestureHandler>
+        </PanGestureHandler>
       </View>
     </>
   );
