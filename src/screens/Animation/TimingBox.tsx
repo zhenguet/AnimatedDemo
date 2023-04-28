@@ -28,7 +28,9 @@ export default function TimingBox({ navigation }: any) {
         }}
         title="Back"
       />
-      <Animated.View style={[styles.box, animatedStyles]} />
+      <View style={{ flex: 1 }}>
+        <Animated.View style={[styles.box, animatedStyles]} />
+      </View>
       <Button
         onPress={() => {
           offset.value = withTiming(Math.random(), {
