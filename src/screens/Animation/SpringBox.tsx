@@ -27,6 +27,19 @@ export default function SpringBox({ navigation }: any) {
     };
   });
 
+  const customSpringStyles = useAnimatedStyle(() => {
+    return {
+      transform: [
+        {
+          translateX: withSpring(springOffset.value * 255, {
+            damping: 20,
+            stiffness: 90,
+          }),
+        },
+      ],
+    };
+  });
+
   const timingAnimatedStyles = useAnimatedStyle(() => {
     return {
       transform: [
@@ -46,12 +59,11 @@ export default function SpringBox({ navigation }: any) {
         title="Back"
       />
       <View style={{ flex: 1 }}>
-        <View style={{ padding: 15 }}>
-          <Animated.View style={[styles.box, springAnimatedStyles]} />
-        </View>
-        <View style={{ padding: 15 }}>
-          <Animated.View style={[styles.box, timingAnimatedStyles]} />
-        </View>
+        <Animated.View style={[styles.box, springAnimatedStyles]} />
+
+        <Animated.View style={[styles.box, customSpringStyles]} />
+
+        <Animated.View style={[styles.box, timingAnimatedStyles]} />
       </View>
       <Button
         onPress={() => {
@@ -82,5 +94,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     height: 100,
     width: 100,
+    margin: 15,
   },
 });
