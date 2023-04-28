@@ -7,6 +7,7 @@ import {
   ScrollView,
   Image,
   Alert,
+  Button,
 } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -19,7 +20,8 @@ import {
 import { changeTheme, ThemeState } from '../../store/theme';
 import i18next from 'i18next';
 
-const Example = () => {
+const Example = (props: any) => {
+  const { navigation } = props;
   const { t } = useTranslation(['example', 'welcome']);
   const {
     Common,
@@ -243,6 +245,15 @@ const Example = () => {
             />
           </TouchableOpacity>
         </View>
+      </View>
+
+      <View>
+        <Button
+          title={'Animation 1'}
+          onPress={() => {
+            navigation.navigate('SpringBox');
+          }}
+        />
       </View>
     </ScrollView>
   );
