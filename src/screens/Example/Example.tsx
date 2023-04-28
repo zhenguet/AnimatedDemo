@@ -12,7 +12,10 @@ import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Brand } from '../../components';
 import { useTheme } from '../../hooks';
-import { useLazyFetchOneQuery } from '../../services/modules/users';
+import {
+  useLazyFetchOneQuery,
+  useLoginMutation,
+} from '../../services/modules/users';
 import { changeTheme, ThemeState } from '../../store/theme';
 import i18next from 'i18next';
 
@@ -28,13 +31,16 @@ const Example = () => {
   } = useTheme();
   const dispatch = useDispatch();
 
-  const [fetchOne, { data, isSuccess, isLoading, isFetching }] =
-    useLazyFetchOneQuery();
+  // const [fetchOne, { data, isSuccess, isLoading, isFetching }] =
+  //   useLazyFetchOneQuery();
+
+  const [login, { data, isSuccess, isLoading }] = useLoginMutation();
 
   useEffect(() => {
-    if (isSuccess && data?.name) {
-      Alert.alert(t('example:helloUser', { name: data.name }));
+    if (isSuccess && data?.model?.fullName) {
+      Alert.alert(t('example:helloUser', { name: data.model.fullName }));
     }
+    console.log({ data });
   }, [isSuccess, data]);
 
   const onChangeTheme = ({ theme, darkMode }: Partial<ThemeState>) => {
@@ -198,9 +204,14 @@ const Example = () => {
         >
           <TouchableOpacity
             style={[Common.button.circle, Gutters.regularBMargin]}
-            onPress={() => fetchOne(`${Math.ceil(Math.random() * 10 + 1)}`)}
+            onPress={() =>
+              login({
+                username: 'admin',
+                password: '123456',
+              })
+            }
           >
-            {isFetching || isLoading ? (
+            {isLoading ? (
               <ActivityIndicator />
             ) : (
               <Image
