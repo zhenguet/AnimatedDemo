@@ -247,11 +247,19 @@ const Example = (props: any) => {
         </View>
       </View>
 
-      <View>
+      <View style={{ padding: 15 }}>
         <Button
-          title={'Animation 1'}
+          title={'SpringBox'}
           onPress={() => {
             navigation.navigate('SpringBox');
+          }}
+        />
+      </View>
+      <View style={{ padding: 15 }}>
+        <Button
+          title={'TimingBox'}
+          onPress={() => {
+            navigation.navigate('TimingBox');
           }}
         />
       </View>

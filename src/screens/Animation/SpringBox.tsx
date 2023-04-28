@@ -2,17 +2,20 @@ import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withSpring,
+  Easing,
+  withTiming,
 } from 'react-native-reanimated';
 import { Button, StyleSheet, View } from 'react-native';
 
-export default function SpringBox() {
-  const offset = useSharedValue(0);
+export default function SpringBox({ navigation }: any) {
+  const springOffset = useSharedValue(0);
+  const timingOffset = useSharedValue(0);
 
-  const animatedStyles = useAnimatedStyle(() => {
+  const springAnimatedStyles = useAnimatedStyle(() => {
     return {
       transform: [
         {
-          translateX: withSpring(offset.value * 255, {}, finished => {
+          translateX: withSpring(springOffset.value * 255, {}, finished => {
             if (finished) {
               console.log('ANIMATION ENDED');
             } else {
@@ -24,21 +27,48 @@ export default function SpringBox() {
     };
   });
 
+  const timingAnimatedStyles = useAnimatedStyle(() => {
+    return {
+      transform: [
+        {
+          translateX: timingOffset.value * 255,
+        },
+      ],
+    };
+  });
+
   return (
     <>
-      <View style={{ flex: 1, padding: 15 }}>
-        <Animated.View style={[styles.box, animatedStyles]} />
+      <Button
+        onPress={() => {
+          navigation.goBack();
+        }}
+        title="Back"
+      />
+      <View style={{ flex: 1 }}>
+        <View style={{ padding: 15 }}>
+          <Animated.View style={[styles.box, springAnimatedStyles]} />
+        </View>
+        <View style={{ padding: 15 }}>
+          <Animated.View style={[styles.box, timingAnimatedStyles]} />
+        </View>
       </View>
       <Button
         onPress={() => {
-          offset.value = Math.random();
-          // offset.value = withSpring(Math.random(), {}, (finished) => {
+          const offset = Math.random();
+          springOffset.value = offset;
+          // springOffset.value = withSpring(offset, {}, (finished) => {
           //   if (finished) {
           //     console.log("ANIMATION ENDED");
           //   } else {
           //     console.log("ANIMATION GOT CANCELLED");
           //   }
           // });
+
+          timingOffset.value = withTiming(offset, {
+            duration: 500,
+            easing: Easing.out(Easing.exp),
+          });
         }}
         title="Move"
       />
