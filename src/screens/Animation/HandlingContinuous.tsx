@@ -11,15 +11,6 @@ import Animated, {
 export default function HandlingContinuous({ navigation }: any) {
   const pressed = useSharedValue(false);
 
-  const eventHandler = useAnimatedGestureHandler({
-    onStart: (event, ctx) => {
-      pressed.value = true;
-    },
-    onEnd: (event, ctx) => {
-      pressed.value = false;
-    },
-  });
-
   const uas = useAnimatedStyle(() => ({
     backgroundColor: pressed.value ? '#FEEF86' : '#001972',
     transform: [{ scale: withSpring(pressed.value ? 1.2 : 1) }],
@@ -41,7 +32,16 @@ export default function HandlingContinuous({ navigation }: any) {
           alignItems: 'center',
         }}
       >
-        <TapGestureHandler onGestureEvent={eventHandler}>
+        <TapGestureHandler
+          onGestureEvent={useAnimatedGestureHandler({
+            onStart: (event, ctx) => {
+              pressed.value = true;
+            },
+            onEnd: (event, ctx) => {
+              pressed.value = false;
+            },
+          })}
+        >
           <Animated.View style={[styles.ball, uas]} />
         </TapGestureHandler>
       </View>
