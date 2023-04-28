@@ -42,7 +42,6 @@ const Example = (props: any) => {
     if (isSuccess && data?.model?.fullName) {
       Alert.alert(t('example:helloUser', { name: data.model.fullName }));
     }
-    console.log({ data });
   }, [isSuccess, data]);
 
   const onChangeTheme = ({ theme, darkMode }: Partial<ThemeState>) => {
@@ -79,6 +78,22 @@ const Example = (props: any) => {
           title={'WobbleExample'}
           onPress={() => {
             navigation.navigate('WobbleExample');
+          }}
+        />
+      </View>
+      <View style={{ padding: 15 }}>
+        <Button
+          title={'HandlingGesture'}
+          onPress={() => {
+            navigation.navigate('HandlingGesture');
+          }}
+        />
+      </View>
+      <View style={{ padding: 15 }}>
+        <Button
+          title={'HandlingContinuous'}
+          onPress={() => {
+            navigation.navigate('HandlingContinuous');
           }}
         />
       </View>
