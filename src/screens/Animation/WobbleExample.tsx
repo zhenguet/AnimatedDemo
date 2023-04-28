@@ -31,11 +31,9 @@ export default function WobbleExample({ navigation }: any) {
       </View>
       <Button
         onPress={() => {
-          const ANGLE = Math.random() * 10;
-
           rotation.value = rotation.value = withSequence(
             withTiming(-10, { duration: 50 }),
-            withRepeat(withTiming(ANGLE, { duration: 100 }), 6, true),
+            withRepeat(withTiming(10, { duration: 100 }), 6, true),
             withTiming(0, { duration: 50 }),
           );
         }}
