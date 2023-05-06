@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { StyleSheet, Text, Button } from 'react-native';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -13,9 +13,15 @@ const cardSize = 200;
 const cardMargin = 10;
 const cardInterval = cardSize + cardMargin * 2;
 
-export default function InvertedFlatListExample() {
+export default function InvertedFlatListExample({ navigation }: any) {
   return (
     <>
+      <Button
+        onPress={() => {
+          navigation.goBack();
+        }}
+        title="Back"
+      />
       <List />
       <List horizontal />
     </>
