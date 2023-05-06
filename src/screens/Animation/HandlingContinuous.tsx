@@ -15,24 +15,30 @@ export default function HandlingContinuous({ navigation }: any) {
   const y = useSharedValue(startingPosition);
 
   const eventHandler = useAnimatedGestureHandler({
-    onStart: (event, ctx) => {
+    onStart: (event, ctx: any) => {
       pressed.value = true;
+      ctx.startX = x.value;
+      ctx.startY = y.value;
     },
     onActive: (event, ctx) => {
-      x.value = startingPosition + event.translationX;
-      y.value = startingPosition + event.translationY;
+      x.value = ctx.startX + event.translationX;
+      y.value = ctx.startY + event.translationY;
     },
     onEnd: (event, ctx) => {
       pressed.value = false;
-      x.value = withSpring(startingPosition);
-      y.value = withSpring(startingPosition);
+      x.value = withSpring(ctx.startX + event.translationX);
+      y.value = withSpring(ctx.startY + event.translationY);
     },
   });
 
   const uas = useAnimatedStyle(() => {
     return {
       backgroundColor: pressed.value ? '#FEEF86' : '#001972',
-      transform: [{ translateX: x.value }, { translateY: y.value }],
+      transform: [
+        { translateX: x.value },
+        { translateY: y.value },
+        { scale: withSpring(pressed.value ? 1.2 : 1) },
+      ],
     };
   });
 
