@@ -97,6 +97,14 @@ const Example = (props: any) => {
           }}
         />
       </View>
+      <View style={{ padding: 15 }}>
+        <Button
+          title={'InvertedFlatListExample'}
+          onPress={() => {
+            navigation.navigate('InvertedFlatListExample');
+          }}
+        />
+      </View>
     </ScrollView>
   );
 };

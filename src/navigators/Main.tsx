@@ -6,6 +6,7 @@ import TimingBox from '../screens/Animation/TimingBox';
 import WobbleExample from '../screens/Animation/WobbleExample';
 import HandlingGesture from '../screens/Animation/HandlingGesture';
 import HandlingContinuous from '../screens/Animation/HandlingContinuous';
+import InvertedFlatListExample from '../screens/Animation/InvertedFlatListExample';
 
 const Stack = createStackNavigator();
 
@@ -19,6 +20,10 @@ const MainNavigator = () => {
       <Stack.Screen name="WobbleExample" component={WobbleExample} />
       <Stack.Screen name="HandlingGesture" component={HandlingGesture} />
       <Stack.Screen name="HandlingContinuous" component={HandlingContinuous} />
+      <Stack.Screen
+        name="InvertedFlatListExample"
+        component={InvertedFlatListExample}
+      />
     </Stack.Navigator>
   );
 };
