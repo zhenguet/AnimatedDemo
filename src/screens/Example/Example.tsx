@@ -113,6 +113,14 @@ const Example = (props: any) => {
           }}
         />
       </View>
+      <View style={{ padding: 15 }}>
+        <Button
+          title={'Switch'}
+          onPress={() => {
+            navigation.navigate('Switch');
+          }}
+        />
+      </View>
     </ScrollView>
   );
 };

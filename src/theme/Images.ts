@@ -17,5 +17,7 @@ export default function ({}: ThemeVariables) {
       send: require('./assets/images/send.png'),
       translate: require('./assets/images/translate.png'),
     },
+    light: require('./assets/images/light.png'),
+    night: require('./assets/images/night.png'),
   };
 }

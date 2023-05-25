@@ -8,6 +8,7 @@ import HandlingGesture from '../screens/Animation/HandlingGesture';
 import HandlingContinuous from '../screens/Animation/HandlingContinuous';
 import InvertedFlatListExample from '../screens/Animation/InvertedFlatListExample';
 import Slider from '../screens/Animation/Slider';
+import Switch from '../screens/Animation/Switch';
 
 const Stack = createStackNavigator();
 
@@ -26,6 +27,7 @@ const MainNavigator = () => {
         component={InvertedFlatListExample}
       />
       <Stack.Screen name="Slider" component={Slider} />
+      <Stack.Screen name="Switch" component={Switch} />
     </Stack.Navigator>
   );
 };
