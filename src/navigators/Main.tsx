@@ -7,6 +7,7 @@ import WobbleExample from '../screens/Animation/WobbleExample';
 import HandlingGesture from '../screens/Animation/HandlingGesture';
 import HandlingContinuous from '../screens/Animation/HandlingContinuous';
 import InvertedFlatListExample from '../screens/Animation/InvertedFlatListExample';
+import Slider from '../screens/Animation/Slider';
 
 const Stack = createStackNavigator();
 
@@ -24,6 +25,7 @@ const MainNavigator = () => {
         name="InvertedFlatListExample"
         component={InvertedFlatListExample}
       />
+      <Stack.Screen name="Slider" component={Slider} />
     </Stack.Navigator>
   );
 };
