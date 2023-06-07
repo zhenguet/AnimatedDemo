@@ -121,6 +121,14 @@ const Example = (props: any) => {
           }}
         />
       </View>
+      <View style={{ padding: 15 }}>
+        <Button
+          title={'Duolingo'}
+          onPress={() => {
+            navigation.navigate('Duolingo');
+          }}
+        />
+      </View>
     </ScrollView>
   );
 };

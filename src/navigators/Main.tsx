@@ -9,6 +9,7 @@ import HandlingContinuous from '../screens/Animation/HandlingContinuous';
 import InvertedFlatListExample from '../screens/Animation/InvertedFlatListExample';
 import Slider from '../screens/Animation/Slider';
 import Switch from '../screens/Animation/Switch';
+import Duolingo from '../screens/Animation/Duolingo/Duolingo';
 
 const Stack = createStackNavigator();
 
@@ -28,6 +29,7 @@ const MainNavigator = () => {
       />
       <Stack.Screen name="Slider" component={Slider} />
       <Stack.Screen name="Switch" component={Switch} />
+      <Stack.Screen name="Duolingo" component={Duolingo} />
     </Stack.Navigator>
   );
 };
