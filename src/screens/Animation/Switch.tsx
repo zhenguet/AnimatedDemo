@@ -5,6 +5,7 @@ import Animated, {
   Easing,
   useAnimatedStyle,
   useSharedValue,
+  withSpring,
   withTiming,
 } from 'react-native-reanimated';
 
@@ -14,8 +15,20 @@ export default function Switch({ navigation }: any) {
   const [state, setState] = React.useState(false);
   const timingOffset = useSharedValue(0);
 
-  const animatedStyles = useAnimatedStyle(() => {
+  const lightAnimatedStyles = useAnimatedStyle(() => {
     return {
+      opacity: withSpring(state ? 0 : 1),
+      transform: [
+        {
+          translateX: timingOffset.value,
+        },
+      ],
+    };
+  });
+
+  const nightAnimatedStyles = useAnimatedStyle(() => {
+    return {
+      opacity: withSpring(state ? 1 : 0),
       transform: [
         {
           translateX: timingOffset.value,
@@ -38,7 +51,7 @@ export default function Switch({ navigation }: any) {
             const offset = state ? 0 : 80 - 40;
             setState(!state);
             timingOffset.value = withTiming(offset, {
-              duration: 250,
+              duration: 500,
               easing: Easing.out(Easing.exp),
             });
           }}
@@ -49,11 +62,22 @@ export default function Switch({ navigation }: any) {
             backgroundColor: '#fff',
             borderWidth: 1,
             borderColor: 'silver',
+            shadowOffset: {
+              width: 0,
+              height: 2,
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 3.84,
+            elevation: 5,
           }}
         >
           <Animated.Image
-            source={state ? Images.night : Images.light}
-            style={[styles.box, animatedStyles]}
+            source={Images.light}
+            style={[styles.box, lightAnimatedStyles]}
+          />
+          <Animated.Image
+            source={Images.night}
+            style={[styles.box, nightAnimatedStyles]}
           />
         </Pressable>
       </View>
@@ -68,5 +92,6 @@ const styles = StyleSheet.create({
     height: 34,
     width: 34,
     margin: 2,
+    position: 'absolute',
   },
 });
